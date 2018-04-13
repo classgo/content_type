@@ -5,6 +5,6 @@ from django.shortcuts import render,Httpresponse
 
 def index(request):
 
-    return Httpresponse("兰博修改的文件")
+    return Httpresponse("兰博修改的文件再再再再修改")
 
 
