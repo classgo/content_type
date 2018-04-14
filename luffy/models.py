@@ -8,8 +8,8 @@ from django.contrib.contenttypes.models import ContentType
 class DegreeCourse(models.Model):
     """学位课程"""
     name = models.CharField(verbose_name='名称',max_length=128, unique=True)
-    course_img = models.CharField(max_length=255, verbose_name="缩略图")
-    brief = models.TextField(verbose_name="学位课程简介")
+    course_img = models.CharField(max_length=255, blank=True, null=True, verbose_name="缩略图")
+    brief = models.TextField(verbose_name="学位课程简介", blank=True, null=True)
     total_scholarship = models.PositiveIntegerField(verbose_name="总奖学金(贝里)", default=40000)
     mentor_compensation_bonus = models.PositiveIntegerField(verbose_name="本课程的导师辅导费用(贝里)", default=15000)
     period = models.PositiveIntegerField(verbose_name="建议学习周期(days)", default=150, help_text='为了计算学位奖学金')
@@ -35,10 +35,10 @@ class Teacher(models.Model):
     role_choices = ((1, '讲师'), (2, '导师'))
     role = models.SmallIntegerField(choices=role_choices, default=1)
 
-    title = models.CharField(max_length=64, verbose_name="职位、职称")
+    title = models.CharField(max_length=64, verbose_name="职位、职称", blank=True, null=True)
     signature = models.CharField(max_length=255, verbose_name="导师签名", blank=True, null=True)
-    image = models.CharField(max_length=128, verbose_name='头像')
-    brief = models.TextField(max_length=1024, verbose_name='简介')
+    image = models.CharField(max_length=128, verbose_name='头像', blank=True, null=True)
+    brief = models.TextField(max_length=1024, verbose_name='简介', blank= True, null=True)
 
     def __str__(self):
         return self.name
@@ -97,4 +97,6 @@ class PricePolicy(models.Model):
     price = models.FloatField(verbose_name='价格')
 
     class Meta:
+        verbose_name = '价格策略'
+        verbose_name_plural = verbose_name
         unique_together = ("content_type", 'object_id', "valid_period")
